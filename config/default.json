@@ -1,0 +1,8 @@
+{
+    "features": {
+      "usePostgres": false,
+      "useMongo": false,
+      "useMariaDB": true
+    }
+  }
+  
