@@ -19,8 +19,8 @@ async function checkDatabase() {
     conn_report = await getReportsDBConnection();
     console.log("Conectado a MariaDB");
 
-    const rows = await conn.query(`select id from preinspeccion where id in (
-      1497, 1537, 1542, 1604, 1631) order by id asc`);
+    const rows = await conn.query(`select id from preinspeccion where id in (191,528)
+`);
     if (rows.length === 0) {
       console.log('No hay preinspecciones pendientes');
       await delay(3900000 ); 

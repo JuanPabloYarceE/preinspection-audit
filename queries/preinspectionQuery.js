@@ -379,35 +379,35 @@ union all (
 		di.proveedorId,
 		di.clienteId,
 		di.gastos_administrativos,
-		gastos_administrativos_porcentaje,
+		COALESCE(gastos_administrativos_porcentaje,0) as gastos_administrativos_porcentaje,
 		di.gastos_aduaneros_y_tributarios,
-		gastos_aduaneros_y_tributarios_porcentaje,
+		COALESCE(gastos_aduaneros_y_tributarios_porcentaje,0) as gastos_aduaneros_y_tributarios_porcentaje,
 		di.gastos_comerciales,
-		gastos_comerciales_porcentaje,
+		COALESCE(gastos_comerciales_porcentaje,0) as gastos_comerciales_porcentaje,
 		di.gastos_costos_indirectos,
-		gastos_costos_indirectos_porcentaje,
+		COALESCE(gastos_costos_indirectos_porcentaje,0) as gastos_costos_indirectos_porcentaje,
 		di.gastos_de_destino,
-		gastos_de_destino_porcentaje,
+		COALESCE(gastos_de_destino_porcentaje,0) as gastos_de_destino_porcentaje,
 		di.gastos_de_manejo_y_logística,
-		gastos_de_manejo_y_logística_porcentaje,
+		COALESCE(gastos_de_manejo_y_logística_porcentaje,0) as gastos_de_manejo_y_logística_porcentaje,
 		di.gastos_de_seguro,
-		gastos_de_seguro_porcentaje,
+		COALESCE(gastos_de_seguro_porcentaje,0) as gastos_de_seguro_porcentaje,
 		di.gastos_de_transporte,
-		gastos_de_transporte_porcentaje,
+		COALESCE(gastos_de_transporte_porcentaje,0) as gastos_de_transporte_porcentaje,
 		di.gastos_financieros,
-		gastos_financieros_porcentaje,
+		COALESCE(gastos_financieros_porcentaje,0) as gastos_financieros_porcentaje,
 		di.gastos_operativos,
-		gastos_operativos_porcentaje,
+		COALESCE(gastos_operativos_porcentaje,0) as gastos_operativos_porcentaje,
 		di.otros,
-		otros_porcentaje,
+		COALESCE(otros_porcentaje,0) as otros_porcentaje,
 		di.antidumping,
-		antidumping_porcentaje,
+		COALESCE(antidumping_porcentaje,0) as antidumping_porcentaje,
 		di.arancel,
-		arancel_porcentaje,
+		COALESCE(arancel_porcentaje,0) as arancel_porcentaje,
 		di.iva,
-		iva_porcentaje,
+		COALESCE(iva_porcentaje,0) as iva_porcentaje,
 		di.ultraprocesados,
-		ultraprocesados_porcentaje,
+		COALESCE(ultraprocesados_porcentaje,0) as ultraprocesados_porcentaje,
 		di.totalGastos,
 		di.totalTributos,
 		di.totalGastos + di.totalTributos as totalGastosImpuestos,
@@ -421,9 +421,9 @@ union all (
               on
 		(di.productoId = dc.producto_id
 			and di.preinspeccionId = dc.preinspeccionCompraId)
-	join data_compraTotal as dt on
+	left join data_compraTotal as dt on
 		di.preinspeccionId = dt.preinspeccionIdTotal
-	join data_preinspeccionGastoTributo as dgt on
+	left join data_preinspeccionGastoTributo as dgt on
 		di.preinspeccionId = dgt.preinspeccionGastoTributoId
 		and di.productoId = dgt.productoGastoTributoId
 	left join embarques e on
